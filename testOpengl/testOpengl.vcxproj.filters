@@ -21,16 +21,22 @@
     <ClCompile Include="src\Window.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\imgui.cpp">
+    <ClCompile Include="src\GameObject.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\imgui_demo.cpp">
+    <ClCompile Include="src\ImGuiStyle.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\imgui_draw.cpp">
+    <ClCompile Include="src\ImGui\imgui.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\imgui_impl_glfw_gl3.cpp">
+    <ClCompile Include="src\ImGui\imgui_demo.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGui\imgui_draw.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGui\imgui_impl_glfw_gl3.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,25 +44,31 @@
     <ClInclude Include="src\Window.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\stb_truetype.h">
+    <ClInclude Include="src\GameObject.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\imconfig.h">
+    <ClInclude Include="src\ImGuiStyle.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\imgui.h">
+    <ClInclude Include="src\ImGui\imgui.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\imgui_internal.h">
+    <ClInclude Include="src\ImGui\imgui_impl_glfw_gl3.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\stb_rect_pack.h">
+    <ClInclude Include="src\ImGui\imgui_internal.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\stb_textedit.h">
+    <ClInclude Include="src\ImGui\stb_rect_pack.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\imgui_impl_glfw_gl3.h">
+    <ClInclude Include="src\ImGui\stb_textedit.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGui\stb_truetype.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGui\imconfig.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

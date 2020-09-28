@@ -3,7 +3,6 @@
 
 int main(void)
 {
-	FreeConsole();
 	if(!Window::Render())
 		return 0;
 }
