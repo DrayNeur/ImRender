@@ -143,19 +143,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\GameObjects.cpp" />
     <ClCompile Include="src\ImGui\imgui.cpp" />
-    <ClCompile Include="src\ImGuiStyle.cpp" />
     <ClCompile Include="src\ImGui\imgui_demo.cpp" />
     <ClCompile Include="src\ImGui\imgui_draw.cpp" />
     <ClCompile Include="src\ImGui\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\GameObjects.h" />
     <ClInclude Include="src\ImGui\imconfig.h" />
     <ClInclude Include="src\ImGui\imgui.h" />
-    <ClInclude Include="src\ImGuiStyle.h" />
     <ClInclude Include="src\ImGui\imgui_impl_glfw_gl3.h" />
     <ClInclude Include="src\ImGui\imgui_internal.h" />
     <ClInclude Include="src\ImGui\stb_rect_pack.h" />
