@@ -107,7 +107,7 @@ bool Window::Render()
 		if (objects_window)
 		{
 			ImGui::SetNextWindowSize(ImVec2(230, 120), ImGuiCond_FirstUseEver);
-			ImGui::Begin("Scene objects", &objects_window);
+			ImGui::Begin("GameObjects List", &objects_window);
 			for(int i = 0; i < 120; i++)
 				ImGui::Text("Hello from another window!");
 			ImGui::End();
@@ -157,7 +157,7 @@ static void MainMenuBar()
 		}
 		if (ImGui::BeginMenu("Window"))
 		{
-			ImGui::MenuItem("Scene object", NULL, &objects_window);
+			ImGui::MenuItem("GameObjects List", NULL, &objects_window);
 			ImGui::MenuItem("Clear color", NULL, &color_window);
 			ImGui::MenuItem("Project scripts", NULL, &script_window);
 			ImGui::EndMenu();
