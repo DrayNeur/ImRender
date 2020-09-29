@@ -6,9 +6,10 @@
 #include "Window.h"
 #include <iostream>
 #include <Windows.h>
+#include <cstdio>
 #include "GameObjects.h"
 static void MainMenuBar();
-static void CreateGameObject();
+static void CreateGameObject(char* name);
 static void RemoveGameObject();
 static void glfw_error_callback(int error, const char* description)
 {
@@ -108,8 +109,11 @@ bool Window::Render()
 		{
 			ImGui::SetNextWindowSize(ImVec2(230, 120), ImGuiCond_FirstUseEver);
 			ImGui::Begin("GameObjects List", &objects_window);
-			for(int i = 0; i < 120; i++)
-				ImGui::Text("Hello from another window!");
+			for (GameObjects::GameObject object : GameObjects::getGameObjects()) {
+				ImGui::Text(object.name);
+				printf("new object: %s\n", object.name);
+			}
+			printf("\n-\n");
 			ImGui::End();
 		}
 		if (script_window)
@@ -164,8 +168,12 @@ static void MainMenuBar()
 		}
 		if (ImGui::BeginMenu("GameObjects"))
 		{
-			if (ImGui::MenuItem("Create new GameObject"))
-				CreateGameObject();
+			static char name[128] = "";
+			ImGui::InputText("name", name, IM_ARRAYSIZE(name));
+			if (ImGui::MenuItem("Create new GameObject")) {
+				int id = GameObjects::getGameObjects().size() + 1;
+				GameObjects::CreateGameObject(name, id);
+			}
 
 			ImGui::EndMenu();
 		}
@@ -173,11 +181,11 @@ static void MainMenuBar()
 		ImGui::Text("| FPS: %d", (int)ImGui::GetIO().Framerate);
 		ImGui::EndMainMenuBar();
 	}
-}
-
-static void CreateGameObject()
+} 
+static void CreateGameObject(char* name)
 {
-	GameObjects::CreateGameObject();
+	int id = GameObjects::getGameObjects().size() + 1;
+	GameObjects::CreateGameObject(name, id);
 }
 
 static void RemoveGameObject()
