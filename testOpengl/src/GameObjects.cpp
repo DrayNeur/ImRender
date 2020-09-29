@@ -6,9 +6,9 @@
 
 std::vector<GameObjects::GameObject> gameObjects;
 
-bool GameObjects::CreateGameObject(char* name, int id)
+bool GameObjects::CreateGameObject(int id)
 {
-	gameObjects.push_back({ name, id });
+	gameObjects.push_back({ id });
 	return true;
 }
 
@@ -21,7 +21,7 @@ bool GameObjects::RemoveGameObject()
 bool GameObjects::InitGameObject()
 {
 	printf("Object init !\n");
-	gameObjects.push_back({(char*)"miguel", 12});
+	gameObjects.push_back({12});
 	return true;
 }
 

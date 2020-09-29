@@ -9,7 +9,6 @@
 #include <cstdio>
 #include "GameObjects.h"
 static void MainMenuBar();
-static void CreateGameObject(char* name);
 static void RemoveGameObject();
 static void glfw_error_callback(int error, const char* description)
 {
@@ -20,6 +19,7 @@ bool main_window = true;
 bool objects_window = false;
 bool script_window = false;
 bool color_window = false;
+
 
 bool Window::Render()
 {
@@ -110,10 +110,7 @@ bool Window::Render()
 			ImGui::SetNextWindowSize(ImVec2(230, 120), ImGuiCond_FirstUseEver);
 			ImGui::Begin("GameObjects List", &objects_window);
 			for (GameObjects::GameObject object : GameObjects::getGameObjects()) {
-				ImGui::Text(object.name);
-				printf("new object: %s\n", object.name);
 			}
-			printf("\n-\n");
 			ImGui::End();
 		}
 		if (script_window)
@@ -168,24 +165,16 @@ static void MainMenuBar()
 		}
 		if (ImGui::BeginMenu("GameObjects"))
 		{
-			static char name[128] = "";
-			ImGui::InputText("name", name, IM_ARRAYSIZE(name));
 			if (ImGui::MenuItem("Create new GameObject")) {
 				int id = GameObjects::getGameObjects().size() + 1;
-				GameObjects::CreateGameObject(name, id);
+				GameObjects::CreateGameObject(id);
 			}
-
 			ImGui::EndMenu();
 		}
 
 		ImGui::Text("| FPS: %d", (int)ImGui::GetIO().Framerate);
 		ImGui::EndMainMenuBar();
 	}
-} 
-static void CreateGameObject(char* name)
-{
-	int id = GameObjects::getGameObjects().size() + 1;
-	GameObjects::CreateGameObject(name, id);
 }
 
 static void RemoveGameObject()
