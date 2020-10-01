@@ -19,6 +19,7 @@ bool main_window = true;
 bool objects_window = false;
 bool script_window = false;
 bool color_window = false;
+bool ask_window = false;
 
 
 bool Window::Render()
@@ -39,14 +40,11 @@ bool Window::Render()
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	ImGui_ImplGlfwGL3_Init(window, true);
-	//io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 12);
-	//io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 10);
 	io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 14);
 	io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 18);
 	ImGui::StyleColorsDark();
 	ImGuiStyle * style = &ImGui::GetStyle();
 
-	//style->WindowPadding = ImVec2(15, 15);
 	style->WindowRounding = 5.0f;
 	style->FramePadding = ImVec2(5, 5);
 	style->FrameRounding = 4.0f;
@@ -63,8 +61,6 @@ bool Window::Render()
 	style->Colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
 	style->Colors[ImGuiCol_ChildWindowBg] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
 	style->Colors[ImGuiCol_PopupBg] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
-	//style->Colors[ImGuiCol_Border] = ImVec4(0.80f, 0.80f, 0.83f, 0.88f);
-	//style->Colors[ImGuiCol_BorderShadow] = ImVec4(0.92f, 0.91f, 0.88f, 0.00f);
 	style->Colors[ImGuiCol_FrameBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
 	style->Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
 	style->Colors[ImGuiCol_FrameBgActive] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
@@ -98,6 +94,7 @@ bool Window::Render()
 	style->Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.25f, 1.00f, 0.00f, 0.43f);
 	style->Colors[ImGuiCol_ModalWindowDarkening] = ImVec4(1.00f, 0.98f, 0.95f, 0.73f);
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	char name[128] = "name";
 	while (!glfwWindowShouldClose(window))
 	{
 		ImGui_ImplGlfwGL3_NewFrame();
@@ -124,6 +121,19 @@ bool Window::Render()
 			ImGui::SetNextWindowSize(ImVec2(230, 120), ImGuiCond_FirstUseEver);
 			ImGui::Begin("Change ClearColor", &color_window);
 			ImGui::ColorEdit3("clear color", (float*)&clear_color);
+			ImGui::End();
+		}
+		if (ask_window) {
+			int id = GameObjects::getGameObjects().size() + 1;
+			ImGui::Begin("Enter name of gameObject");
+			ImGui::InputText("", name, IM_ARRAYSIZE(name));
+			if (ImGui::Button("Create")) {
+				GameObjects::CreateGameObject(name, id);
+				ask_window = false;
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Cancel"))
+				ask_window = false;
 			ImGui::End();
 		}
 		int display_w, display_h;
@@ -166,8 +176,7 @@ static void MainMenuBar()
 		if (ImGui::BeginMenu("GameObjects"))
 		{
 			if (ImGui::MenuItem("Create new GameObject")) {
-				int id = GameObjects::getGameObjects().size() + 1;
-				GameObjects::CreateGameObject(id);
+				ask_window = true;
 			}
 			ImGui::EndMenu();
 		}

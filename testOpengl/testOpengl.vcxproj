@@ -70,11 +70,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Lib\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Lib\include;$(SolutionDir)Lib\glew\include;$(SolutionDir)Lib\json;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Lib\lib-vc2017;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Lib\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Lib\include;$(SolutionDir)Lib\glew\include;$(SolutionDir)Lib\json;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Lib\lib-vc2017;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -83,7 +83,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Lib\include;$(SolutionDir)Lib\glew\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Lib\include;$(SolutionDir)Lib\glew\include;$(SolutionDir)Lib\json</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,7 +113,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Lib\include;$(SolutionDir)Lib\glew\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Lib\include;$(SolutionDir)Lib\glew\include;$(SolutionDir)Lib\json</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ProjectManager.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\GameObjects.cpp" />
     <ClCompile Include="src\ImGui\imgui.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ProjectManager.h" />
     <ClInclude Include="src\GameObjects.h" />
     <ClInclude Include="src\ImGui\imconfig.h" />
     <ClInclude Include="src\ImGui\imgui.h" />
