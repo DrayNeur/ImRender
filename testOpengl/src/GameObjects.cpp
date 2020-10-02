@@ -2,6 +2,8 @@
 #include <Windows.h>
 #include <iostream>
 #include <fstream> 
+#include <string>
+#include <filesystem>
 #include <vector>
 #include "GameObjects.h"
 #include "ProjectManager.h"
@@ -34,12 +36,33 @@ bool GameObjects::RemoveGameObject()
 
 	return true;
 }
+std::vector<std::string> getJson(std::string folder);
 bool GameObjects::PopulateGameObjects()
 {
-	printf("Object init !\n");
+	std::vector<std::string> files = getJson(ProjectManager::getProjectPath() + "\\gameObjects\\");
+	for (std::string file : files) {
+		std::ifstream ifs(ProjectManager::getProjectPath() + "\\gameObjects\\" + file);
+		std::string content((std::istreambuf_iterator<char>(ifs)),
+			(std::istreambuf_iterator<char>()));
+	}
 	return true;
 }
-
+std::vector<std::string> getJson(std::string folder)
+{
+	std::vector<std::string> names;
+	std::string search_path = folder + "/*.json";
+	WIN32_FIND_DATA fd;
+	HANDLE hFind = ::FindFirstFile(search_path.c_str(), &fd);
+	if (hFind != INVALID_HANDLE_VALUE) {
+		do {
+			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+				names.push_back(fd.cFileName);
+			}
+		} while (::FindNextFile(hFind, &fd));
+		::FindClose(hFind);
+	}
+	return names;
+}
 std::vector<GameObjects::GameObject> GameObjects::getGameObjects()
 {
 	return gameObjects;

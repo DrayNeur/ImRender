@@ -21,7 +21,9 @@ bool objects_window = false;
 bool script_window = false;
 bool color_window = false;
 bool ask_window = false;
-int ask_input = 0;
+bool createGameObject = false;
+bool createProject = false;
+bool openProject = false;
 
 
 bool Window::Render()
@@ -128,27 +130,27 @@ bool Window::Render()
 		if (ask_window) {
 			int id = GameObjects::getGameObjects().size() + 1;
 			ImGui::Begin("Input value");
-			if (ask_input == 1) {
+			if (createGameObject) {
+				ImGui::InputText("name", input_askbox, IM_ARRAYSIZE(input_askbox));
 				if (ImGui::Button("Create")) {
-					ImGui::InputText("name", input_askbox, IM_ARRAYSIZE(input_askbox));
 					GameObjects::CreateGameObject(input_askbox, id);
+					createGameObject = false;
 					ask_window = false;
-					ask_input = 0;
 				}
 			}
-			else if (ask_input == 2) {
+			else if (createProject) {
+				ImGui::InputText("project name", input_askbox, IM_ARRAYSIZE(input_askbox));
 				if (ImGui::Button("Create project")) {
-					ImGui::InputText("project name", input_askbox, IM_ARRAYSIZE(input_askbox));
 					ProjectManager::createProject(input_askbox);
+					createProject = false;
 					ask_window = false;
-					ask_input = 0;
 				}
 			}
-			else if (ask_input == 3) {
+			else if (openProject) {
 				if (ImGui::Button("Open project")) {
 					ProjectManager::createProject(input_askbox);
+					openProject = false;
 					ask_window = false;
-					ask_input = 0;
 				}
 			}
 			
@@ -183,14 +185,16 @@ static void MainMenuBar()
 		if (ImGui::BeginMenu("File"))
 		{
 			if (ImGui::MenuItem("New project")) {
+				createProject = true;
 				ask_window = true;
-				ask_input = 2;
 			}
 			if (ImGui::MenuItem("Open project")) {
+				openProject = true;
 				ask_window = true;
-				ask_input = 3;
 			}
-			if (ImGui::MenuItem("Save project")) {}
+			if (ImGui::MenuItem("Save project")) {
+				GameObjects::PopulateGameObjects();
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Window"))
@@ -203,8 +207,8 @@ static void MainMenuBar()
 		if (ImGui::BeginMenu("GameObjects"))
 		{
 			if (ImGui::MenuItem("Create new GameObject")) {
+				createGameObject = true;
 				ask_window = true;
-				ask_input = 1;
 			}
 			ImGui::EndMenu();
 		}

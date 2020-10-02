@@ -4,6 +4,7 @@
 #include <direct.h>
 #include <tchar.h>
 #include <Windows.h>
+
 std::string ProjectPath = "C:\\Users\\alyst\\source\\repos\\testOpengl\\ImRender\\projecttest";
 
 bool ProjectManager::openProject(std::string path) {
