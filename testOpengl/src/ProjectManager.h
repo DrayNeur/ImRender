@@ -6,6 +6,7 @@ class ProjectManager
 public:
 	static bool openProject(std::string path);
 	static bool createProject(std::string path);
-	static char* getProjectPath();
+	static std::string getProjectPath();
+	static void setProjectPath(std::string projectPath);
 };
 

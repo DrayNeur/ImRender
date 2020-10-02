@@ -8,6 +8,7 @@
 #include <Windows.h>
 #include <cstdio>
 #include "GameObjects.h"
+#include "ProjectManager.h"
 static void MainMenuBar();
 static void RemoveGameObject();
 static void glfw_error_callback(int error, const char* description)
@@ -20,6 +21,7 @@ bool objects_window = false;
 bool script_window = false;
 bool color_window = false;
 bool ask_window = false;
+int ask_input = 0;
 
 
 bool Window::Render()
@@ -94,7 +96,7 @@ bool Window::Render()
 	style->Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.25f, 1.00f, 0.00f, 0.43f);
 	style->Colors[ImGuiCol_ModalWindowDarkening] = ImVec4(1.00f, 0.98f, 0.95f, 0.73f);
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-	char name[128] = "name";
+	char input_askbox[128] = "input";
 	while (!glfwWindowShouldClose(window))
 	{
 		ImGui_ImplGlfwGL3_NewFrame();
@@ -125,12 +127,31 @@ bool Window::Render()
 		}
 		if (ask_window) {
 			int id = GameObjects::getGameObjects().size() + 1;
-			ImGui::Begin("Enter name of gameObject");
-			ImGui::InputText("", name, IM_ARRAYSIZE(name));
-			if (ImGui::Button("Create")) {
-				GameObjects::CreateGameObject(name, id);
-				ask_window = false;
+			ImGui::Begin("Input value");
+			if (ask_input == 1) {
+				if (ImGui::Button("Create")) {
+					ImGui::InputText("name", input_askbox, IM_ARRAYSIZE(input_askbox));
+					GameObjects::CreateGameObject(input_askbox, id);
+					ask_window = false;
+					ask_input = 0;
+				}
 			}
+			else if (ask_input == 2) {
+				if (ImGui::Button("Create project")) {
+					ImGui::InputText("project name", input_askbox, IM_ARRAYSIZE(input_askbox));
+					ProjectManager::createProject(input_askbox);
+					ask_window = false;
+					ask_input = 0;
+				}
+			}
+			else if (ask_input == 3) {
+				if (ImGui::Button("Open project")) {
+					ProjectManager::createProject(input_askbox);
+					ask_window = false;
+					ask_input = 0;
+				}
+			}
+			
 			ImGui::SameLine();
 			if (ImGui::Button("Cancel"))
 				ask_window = false;
@@ -161,8 +182,14 @@ static void MainMenuBar()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
-			if (ImGui::MenuItem("New project")) {}
-			if (ImGui::MenuItem("Open project")) {}
+			if (ImGui::MenuItem("New project")) {
+				ask_window = true;
+				ask_input = 2;
+			}
+			if (ImGui::MenuItem("Open project")) {
+				ask_window = true;
+				ask_input = 3;
+			}
 			if (ImGui::MenuItem("Save project")) {}
 			ImGui::EndMenu();
 		}
@@ -177,6 +204,7 @@ static void MainMenuBar()
 		{
 			if (ImGui::MenuItem("Create new GameObject")) {
 				ask_window = true;
+				ask_input = 1;
 			}
 			ImGui::EndMenu();
 		}

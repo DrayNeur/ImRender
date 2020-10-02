@@ -11,6 +11,6 @@ class GameObjects
 		};
 		static bool CreateGameObject(char* name, int id);
 		static bool RemoveGameObject();
-		static bool InitGameObject();
+		static bool PopulateGameObjects();
 		static std::vector<GameObject> getGameObjects();
 };

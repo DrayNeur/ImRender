@@ -34,7 +34,7 @@ bool GameObjects::RemoveGameObject()
 
 	return true;
 }
-bool GameObjects::InitGameObject()
+bool GameObjects::PopulateGameObjects()
 {
 	printf("Object init !\n");
 	return true;

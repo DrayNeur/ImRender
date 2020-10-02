@@ -4,7 +4,7 @@
 #include <direct.h>
 #include <tchar.h>
 #include <Windows.h>
-const char* ProjectPath = "C:\\Users\\alyst\\source\\repos\\testOpengl\\ImRender\\projecttest";
+std::string ProjectPath = "C:\\Users\\alyst\\source\\repos\\testOpengl\\ImRender\\projecttest";
 
 bool ProjectManager::openProject(std::string path) {
 	ProjectPath = path.c_str();
@@ -26,6 +26,11 @@ bool ProjectManager::createProject(std::string path) {
 	_tmkdir(path.c_str());
 	return true;
 }
-char* ProjectManager::getProjectPath() {
-	return (char*)ProjectPath;
+std::string ProjectManager::getProjectPath() {
+	return ProjectPath;
 }
+
+void ProjectManager::setProjectPath(std::string projectPath) {
+	ProjectPath = projectPath;
+}
+
